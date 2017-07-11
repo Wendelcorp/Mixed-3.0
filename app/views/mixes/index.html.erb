@@ -16,7 +16,7 @@
       <tr>
         <td><%= mix.title %></td>
         <td><%= mix.description %></td>
-        <td><%= link_to 'Show', mix %></td>
+        <td><%= link_to 'Show', mix_songs_url(mix) %></td>
         <td><%= link_to 'Edit', edit_mix_path(mix) %></td>
         <td><%= link_to 'Destroy', mix, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
