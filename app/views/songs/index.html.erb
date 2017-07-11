@@ -2,6 +2,7 @@
 <p><%= @mix.description %></p>
 <br>
 <%= render 'form' %>
+<br>
 <table>
   <tr>
     <th>Artist</th>
@@ -27,8 +28,4 @@
 <br />
 
 <%= link_to 'New Song', new_mix_song_path(params[:mix_id]) %>
-<h1>New song</h1>
-
-
-
 <%= link_to 'Back', mix_songs_path(@song.mix) %>
