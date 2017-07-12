@@ -25,7 +25,8 @@ class SongsController < ApplicationController
   # POST mixes/1/songs
   def create
     @song = @mix.songs.build(song_params)
-
+    @song.link = @song.parse_video_url(@song.link)
+    
     if @song.save
       redirect_to([@song.mix, @song], notice: 'Song was successfully created.')
     else
