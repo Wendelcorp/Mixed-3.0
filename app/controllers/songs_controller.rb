@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   before_action :set_songs
   before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   # GET mixes/1/songs
   def index
@@ -10,8 +11,8 @@ class SongsController < ApplicationController
   end
 
   # GET mixes/1/songs/1
-  def show
-  end
+  # def show
+  # end
 
   # GET mixes/1/songs/new
   def new
@@ -19,8 +20,8 @@ class SongsController < ApplicationController
   end
 
   # GET mixes/1/songs/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST mixes/1/songs
   def create
@@ -62,6 +63,6 @@ class SongsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def song_params
-      params.require(:song).permit(:artist, :title, :link)
+      params.require(:song).permit(:artist, :title, :link).merge(user_id: current_user.id)
     end
 end

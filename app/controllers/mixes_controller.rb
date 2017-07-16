@@ -1,6 +1,6 @@
 class MixesController < ApplicationController
   before_action :set_mix, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
 
   # GET /mixes
   # GET /mixes.json
@@ -10,8 +10,8 @@ class MixesController < ApplicationController
 
   # GET /mixes/1
   # GET /mixes/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /mixes/new
   def new
@@ -43,7 +43,7 @@ class MixesController < ApplicationController
   def update
     respond_to do |format|
       if @mix.update(mix_params)
-        format.html { redirect_to @mixes, notice: 'Mix was successfully updated.' }
+        format.html { redirect_to mixes_path(@mix), notice: 'Mix was successfully updated.' }
         format.json { render :show, status: :ok, location: @mix }
       else
         format.html { render :edit }

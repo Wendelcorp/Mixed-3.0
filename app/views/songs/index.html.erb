@@ -1,10 +1,16 @@
-<%= link_to 'All Mixes', mixes_path %>
+<% if user_signed_in? %>
+<%= link_to 'My Mixes', mixes_path %>
+<% end %>
+
 <br>
 <br>
 <h1><%= @mix.title %></h1>
 <p><%= @mix.description %></p>
 <br>
+<% if @mix.user == current_user %>
+<h3>Add a song</h3>
 <%= render 'form' %>
+<% end %>
 <br>
 <table>
   <tr>
@@ -21,9 +27,12 @@
     <td><%= song.artist %></td>
     <td><%= song.title %></td>
     <td><%= song.link %></td>
-    <td><%= link_to 'Show', [song.mix, song] %></td>
-    <td><%= link_to 'Edit', edit_mix_song_path(song.mix, song) %></td>
-    <td><%= link_to 'Destroy', [song.mix, song], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if song.user == current_user %>
+      <% if (1 > 2) %>
+        <td><%= link_to 'Edit', edit_mix_song_path(song.mix, song) %></td>
+      <% end %>
+    <td><%= link_to 'Delete', [song.mix, song], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
