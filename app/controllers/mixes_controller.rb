@@ -28,7 +28,7 @@ class MixesController < ApplicationController
 
     respond_to do |format|
       if @mix.save
-        format.html { redirect_to @mix, notice: 'Mix was successfully created.' }
+        format.html { redirect_to mix_songs_url(@mix), notice: 'Mix was successfully created.' }
         format.json { render :show, status: :created, location: @mix }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MixesController < ApplicationController
   def update
     respond_to do |format|
       if @mix.update(mix_params)
-        format.html { redirect_to @mix, notice: 'Mix was successfully updated.' }
+        format.html { redirect_to @mixes, notice: 'Mix was successfully updated.' }
         format.json { render :show, status: :ok, location: @mix }
       else
         format.html { render :edit }

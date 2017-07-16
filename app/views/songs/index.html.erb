@@ -1,3 +1,6 @@
+<%= link_to 'All Mixes', mixes_path %>
+<br>
+<br>
 <h1><%= @mix.title %></h1>
 <p><%= @mix.description %></p>
 <br>
@@ -19,13 +22,8 @@
     <td><%= song.title %></td>
     <td><%= song.link %></td>
     <td><%= link_to 'Show', [song.mix, song] %></td>
-    <td><%= link_to 'Edit', edit_mix_song_path(@mix, @mix.songs.ids) %></td>
+    <td><%= link_to 'Edit', edit_mix_song_path(song.mix, song) %></td>
     <td><%= link_to 'Destroy', [song.mix, song], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Song', new_mix_song_path(params[:mix_id]) %>
-<%= link_to 'Back', mix_songs_path(@song.mix) %>
