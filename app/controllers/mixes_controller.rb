@@ -1,10 +1,11 @@
 class MixesController < ApplicationController
   before_action :set_mix, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /mixes
   # GET /mixes.json
   def index
-    @mixes = Mix.all
+    @mixes = current_user.mixes
   end
 
   # GET /mixes/1
@@ -14,7 +15,7 @@ class MixesController < ApplicationController
 
   # GET /mixes/new
   def new
-    @mix = Mix.new
+    @mix = current_user.mixes.build
   end
 
   # GET /mixes/1/edit
@@ -24,7 +25,7 @@ class MixesController < ApplicationController
   # POST /mixes
   # POST /mixes.json
   def create
-    @mix = Mix.new(mix_params)
+    @mix = current_user.mixes.build(mix_params)
 
     respond_to do |format|
       if @mix.save

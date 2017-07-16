@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Sign Up', new_user_registration_path %>
+<%= link_to 'Log In', new_user_session_path %>
+<%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
+
 <h1>My Mixtapes</h1>
 
 <table>
@@ -17,8 +21,10 @@
         <td><%= mix.title %></td>
         <td><%= mix.description %></td>
         <td><%= link_to 'Show', mix_songs_url(mix) %></td>
+        <% if mix.user == current_user %>
         <td><%= link_to 'Edit', edit_mix_path(mix) %></td>
         <td><%= link_to 'Destroy', mix, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

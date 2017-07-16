@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+  get 'welcome/index'
+
+  devise_for :users
   resources :mixes, :path => 'collection' do
     resources :songs, :path => 'mixtape'
   end
-  root to: 'mixes#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
+  authenticated :user do
+    root to: 'mixes#index', as: :authenticated_root
+  end
+  root to: 'welcome#index'
 end
