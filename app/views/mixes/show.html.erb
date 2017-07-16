@@ -10,5 +10,7 @@
   <%= @mix.description %>
 </p>
 
+<% if @mix.user == current_user %>
 <%= link_to 'Edit', edit_mix_path(@mix) %> |
+<% end %>
 <%= link_to 'Back', mixes_path %>

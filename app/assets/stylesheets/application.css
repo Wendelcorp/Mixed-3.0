@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+ #video-placeholder {
+   display: none;
+   position: fixed;
+   bottom: 100px;
+   right: 100px;
+ }
+ .play:hover, .pause:hover {
+   cursor: pointer;
+ }
+ .controls {
+   display: none;
+ }
