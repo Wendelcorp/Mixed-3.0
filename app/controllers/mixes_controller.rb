@@ -1,6 +1,6 @@
 class MixesController < ApplicationController
   before_action :set_mix, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   # GET /mixes
   # GET /mixes.json
@@ -8,10 +8,11 @@ class MixesController < ApplicationController
     @mixes = current_user.mixes
   end
 
-  # GET /mixes/1
-  # GET /mixes/1.json
-  # def show
-  # end
+  def show
+    @songs = @mix.songs
+    @song = @mix.songs.build
+    @mix = Mix.find(params[:id])
+  end
 
   # GET /mixes/new
   def new

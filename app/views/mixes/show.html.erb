@@ -1,16 +1,84 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @mix.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @mix.description %>
-</p>
-
-<% if @mix.user == current_user %>
-<%= link_to 'Edit', edit_mix_path(@mix) %> |
+<% if user_signed_in? %>
+<%= link_to 'My Mixes', mixes_path %>
 <% end %>
-<%= link_to 'Back', mixes_path %>
+
+<br>
+<br>
+<h1><%= @mix.title %></h1>
+<p><%= @mix.description %></p>
+<div id="share"></div>
+<br>
+<% if @mix.user == current_user %>
+<h3>Add a song</h3>
+<%= render 'addsong' %>
+<% end %>
+<br>
+<table>
+  <tr>
+    <th>Artist</th>
+    <th>Title</th>
+    <th>Link</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @songs.reverse.drop(1).reverse.each do |song| %>
+  <tr>
+    <td><%= song.artist %></td>
+    <td><%= song.title %></td>
+    <td><%= song.link %></td>
+    <td class="song" data-video-id="<%= song.link %>">Launch</td>
+    <td class="play">Play</td>
+    <td class="pause">Pause</td>
+    <% if song.user == current_user %>
+      <% if (1 > 2) %>
+        <td><%= link_to 'Edit', edit_mix_song_path(song.mix, song) %></td>
+      <% end %>
+    <td style="color:red;text-decoration:none;"><%= link_to 'Delete', [song.mix, song], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<div id="video-placeholder"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  var player;
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player('video-placeholder', {
+          width: 320,
+          height: 200,
+          videoId: '',
+          playerVars: {
+              color: 'white',
+              playlist: ''
+          },
+          events: {
+              onReady: initialize
+          }
+      });
+  }
+  function initialize(){
+  }
+  $('.play').on('click', function () {
+      player.playVideo();
+  });
+  $('.pause').on('click', function () {
+      player.pauseVideo();
+  });
+  $('.song').on('click', function () {
+      var url = $(this).attr('data-video-id');
+      player.cueVideoById(url);
+      $('#video-placeholder').css('display', 'block')
+      player.playVideo();
+  });
+</script>
+<script>
+    $("#share").jsSocials({
+      showLabel: false,
+      showCount: false,
+        shares: ["email", "twitter", "facebook", "googleplus", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+    });
+
+</script>

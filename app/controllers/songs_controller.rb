@@ -29,7 +29,7 @@ class SongsController < ApplicationController
     @song.link = @song.parse_video_url(@song.link)
 
     if @song.save
-      redirect_to(mix_songs_path(@mix), notice: 'Song was successfully created.')
+      redirect_to(mix_path(@mix), notice: 'Song was successfully created.')
     else
       render action: 'new'
     end
